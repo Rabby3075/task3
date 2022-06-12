@@ -84,6 +84,10 @@ class CustomerController extends Controller
     {
         //
     }
+    public function dash(){
+        return view('customer.dash');
+    }
+
     public function userCreate(){
         return view('customer.registration');
     }
@@ -143,7 +147,7 @@ class CustomerController extends Controller
     );
     $loginCheck = Customer::where('username',$request->username)->where('password',$request->password)->first();
     if($loginCheck){
-        return $request;
+        return  redirect()->route('dashbd');
     }
     else{
         return redirect()->back()->with('failed', 'Invalid username or password');
