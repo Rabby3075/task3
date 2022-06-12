@@ -24,3 +24,4 @@ Route::post('/adminLoginSubmit',[AdminController::class, 'adminLoginSubmit'])->n
 Route::get('/userLogin', function () {return view('customer.login');})->name('userLogin');
 Route::post('/userLoginSubmit',[CustomerController::class, 'userLoginSubmit'])->name('userLoginSubmit');
 Route::get('/user/dash',[CustomerController::class, 'dash'])->name('dashbd');
+Route::get('/admin',[AdminController::class, 'dash'])->name('dashadmin');

@@ -83,6 +83,11 @@ class AdminController extends Controller
     {
         //
     }
+
+    public function dash(){
+        return view('Admin.dash');
+    }
+
     public function adminCreate(){
         return view('Admin.registration');
     }
@@ -131,7 +136,8 @@ class AdminController extends Controller
     );
     $loginCheck = Admin::where('username',$request->username)->where('password',$request->password)->first();
     if($loginCheck){
-        return $request;
+        $request->session()->put('user',$loginCheck->username);
+        return  redirect()->route('dashadmin');
     }
     else{
         return redirect()->back()->with('failed', 'Invalid user');
