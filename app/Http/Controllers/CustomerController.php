@@ -183,6 +183,25 @@ class CustomerController extends Controller
             'username'=>'required|min:5',
         ]
     );
+    $user = Customer::where('username',$request->session()->get('username'))->first();
+    $user->name = $request->name;
+    $request->session()->put('name',$request->name);
+    $user->dob = $request->dob;
+    $request->session()->put('dob',$request->dob);
+    $user->email = $request->email;
+    $request->session()->put('email',$request->email);
+    $user->phone = $request->phone;
+    $request->session()->put('phone',$request->phone);
+    $user->username = $request->username;
+    $request->session()->put('username',$request->username);
+    $result = $user->save();
+    if($result){
+
+        return redirect()->back()->with('success', 'Registration Done successfully');
+    }
+    else{
+        return redirect()->back()->with('failed', 'Registration Failed');
+    }
     }
 
 
