@@ -26,3 +26,5 @@ Route::post('/userLoginSubmit',[CustomerController::class, 'userLoginSubmit'])->
 Route::get('/user/dash',[CustomerController::class, 'dash'])->name('dashbd')->middleware('userValid');
 Route::get('/user/dash/home', function () {return view('customer.home');})->name('userHome');
 Route::get('/user/dash/logout',[CustomerController::class, 'logout'])->name('userLogout')->middleware('userValid');
+Route::get('/user/dash/profile', function () {return view('customer.profile');})->name('userProfile')->middleware('userValid');
+Route::post('/user/dash/profileSubmit',[CustomerController::class, 'editProfile'])->name('editProfile')->middleware('userValid');
