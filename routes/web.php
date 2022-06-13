@@ -2,6 +2,7 @@
 
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\CustomerController;
+use App\Http\Controllers\AdminController;
 
 /*
 |--------------------------------------------------------------------------
@@ -16,7 +17,9 @@ use App\Http\Controllers\CustomerController;
 
 Route::get('/userRegistration',[CustomerController::class, 'userCreate'])->name('userRegistration');
 Route::post('/userRegistrationSubmit',[CustomerController::class, 'userCreateSubmit'])->name('userCreateSubmit');
-//Route::get('/adminRegistration',[AdminController::class, 'userCreate'])->name('userRegistration');
-//Route::post('/adminRegistrationSubmit',[AdminController::class, 'adminCreateSubmit'])->name('adminCreateSubmit');
+Route::get('/adminRegistration',[AdminController::class, 'adminCreate'])->name('adminRegistration');
+Route::post('/adminRegistrationSubmit',[AdminController::class, 'adminCreateSubmit'])->name('adminCreateSubmit');
+Route::get('/adminLogin', function () {return view('admin.login');})->name('adminLogin');
+Route::post('/adminLoginSubmit',[AdminController::class, 'adminLoginSubmit'])->name('adminLoginSubmit');
 Route::get('/userLogin', function () {return view('customer.login');})->name('userLogin');
 Route::post('/userLoginSubmit',[CustomerController::class, 'userLoginSubmit'])->name('userLoginSubmit');
