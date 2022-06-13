@@ -117,6 +117,8 @@ class CustomerController extends Controller
     else{
       $image = $request->image;
       $nameImage = $image->getClientOriginalName();
+      $path = $request->file('image')->storeAs('images',$nameImage,'public');
+
 
       $customer = new Customer();
         $customer->name = $request->name;
@@ -129,7 +131,7 @@ class CustomerController extends Controller
         $customer->image = $nameImage;
         $result = $customer->save();
         if($result){
-            $image->storeAs('public/images',$nameImage);
+
             return redirect()->back()->with('success', 'Registration Done successfully');
         }
         else{
@@ -154,7 +156,7 @@ class CustomerController extends Controller
         $request->session()->put('email',$loginCheck->email);
         $request->session()->put('password',$loginCheck->password);
         $request->session()->put('image',$loginCheck->image);
-        return  redirect()->route('dashbd');
+        return  redirect()->route('userHome');
     }
     else{
         return redirect()->back()->with('failed', 'Invalid username or password');
@@ -170,4 +172,37 @@ class CustomerController extends Controller
         session()->forget('image');
         return redirect()->route('userLogin');
     }
+
+    public function editProfile(Request $request)
+    {
+        $validate = $request->validate([
+            "name"=>"required",
+            'dob'=>'required|date',
+            'email'=>'required|email',
+            'phone'=>'required|regex:/^([0-9\s\-\+\(\)]*)$/|digits:11',
+            'username'=>'required|min:5',
+        ]
+    );
+    $user = Customer::where('username',$request->session()->get('username'))->first();
+    $user->name = $request->name;
+    $request->session()->put('name',$request->name);
+    $user->dob = $request->dob;
+    $request->session()->put('dob',$request->dob);
+    $user->email = $request->email;
+    $request->session()->put('email',$request->email);
+    $user->phone = $request->phone;
+    $request->session()->put('phone',$request->phone);
+    $user->username = $request->username;
+    $request->session()->put('username',$request->username);
+    $result = $user->save();
+    if($result){
+
+        return redirect()->back()->with('success', 'Registration Done successfully');
+    }
+    else{
+        return redirect()->back()->with('failed', 'Registration Failed');
+    }
+    }
+
+
 }
