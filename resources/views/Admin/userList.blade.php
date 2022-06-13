@@ -114,6 +114,20 @@ img{
   width:120%; 
   height: 110%;
 }
+
+table {
+  border-collapse: collapse;
+  width: 100%;
+}
+
+th, td {
+  padding: 8px;
+  text-align: left;
+  border-bottom: 1px solid #ddd;
+}
+
+tr:hover {background-color: coral;}
+
 </style>
 </head>
 <body>
@@ -130,10 +144,27 @@ img{
 </ul>
 
 <div style="margin-left:25%;padding:1px 16px;height:1000px;">
-
-<h1>
-   Welcome, {{Session::get('username')}}
-</h1>
+<br><br>
+<table>
+    <tr>
+        <th>ID</th>
+        <th>Name</th>
+        <th>DOB</th>
+        <th>Phone</th>
+        <th>Email</th>
+        <!--<th>Action</th>-->
+    </tr>
+    @foreach($customers as $customer)
+        <tr>
+            <td>{{$customer->id}}</td>
+            <td>{{$customer->name}}</td>
+            <td>{{$customer->dob}}</td>
+            <td>{{$customer->phone}}</td>
+            <td>{{$customer->email}}</td>
+            <!--<td><a href="/customerEdit/{{$customer->id}}">Details</a></td>-->
+        </tr>
+    @endforeach
+</table>
 
 </div>
 

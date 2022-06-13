@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\Admin;
+use App\Models\Customer;
 use App\Http\Requests\StoreAdminRequest;
 use App\Http\Requests\UpdateAdminRequest;
 use Illuminate\Http\Request;
@@ -136,11 +137,20 @@ class AdminController extends Controller
     );
     $loginCheck = Admin::where('username',$request->username)->where('password',$request->password)->first();
     if($loginCheck){
-        $request->session()->put('user',$loginCheck->username);
+        $request->session()->put('username',$loginCheck->username);
         return  redirect()->route('dashadmin');
     }
     else{
         return redirect()->back()->with('failed', 'Invalid user');
     }
+    }
+    public function logout(){
+        session()->forget('username');
+        return redirect()->route('adminLogin');
+    }
+
+    public function userList(){
+        $customers = Customer::all();
+        return view('Admin.userList')->with('customers', $customers);
     }
 }
