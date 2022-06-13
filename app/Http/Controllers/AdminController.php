@@ -134,7 +134,7 @@ class AdminController extends Controller
         return $request;
     }
     else{
-        return redirect()->back()->with('failed', 'Invalid username or password');
+        return redirect()->back()->with('failed', 'Invalid user');
     }
     }
 }
