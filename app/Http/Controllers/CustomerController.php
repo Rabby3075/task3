@@ -147,10 +147,27 @@ class CustomerController extends Controller
     );
     $loginCheck = Customer::where('username',$request->username)->where('password',$request->password)->first();
     if($loginCheck){
+        $request->session()->put('name',$loginCheck->name);
+        $request->session()->put('dob',$loginCheck->dob);
+        $request->session()->put('phone',$loginCheck->phone);
+        $request->session()->put('username',$loginCheck->username);
+        $request->session()->put('email',$loginCheck->email);
+        $request->session()->put('password',$loginCheck->password);
+        $request->session()->put('image',$loginCheck->image);
         return  redirect()->route('dashbd');
     }
     else{
         return redirect()->back()->with('failed', 'Invalid username or password');
     }
+    }
+    public function logout(){
+        session()->forget('name');
+        session()->forget('dob');
+        session()->forget('phone');
+        session()->forget('username');
+        session()->forget('email');
+        session()->forget('password');
+        session()->forget('image');
+        return redirect()->route('userLogin');
     }
 }
