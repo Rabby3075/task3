@@ -23,5 +23,11 @@ Route::get('/adminLogin', function () {return view('admin.login');})->name('admi
 Route::post('/adminLoginSubmit',[AdminController::class, 'adminLoginSubmit'])->name('adminLoginSubmit');
 Route::get('/userLogin', function () {return view('customer.login');})->name('userLogin');
 Route::post('/userLoginSubmit',[CustomerController::class, 'userLoginSubmit'])->name('userLoginSubmit');
+<<<<<<< HEAD
 Route::get('/user/dash',[CustomerController::class, 'dash'])->name('dashbd');
 Route::get('/admin',[AdminController::class, 'dash'])->name('dashadmin');
+=======
+Route::get('/user/dash',[CustomerController::class, 'dash'])->name('dashbd')->middleware('userValid');
+Route::get('/user/dash/home', function () {return view('customer.home');})->name('userHome');
+Route::get('/user/dash/logout',[CustomerController::class, 'logout'])->name('userLogout')->middleware('userValid');
+>>>>>>> e59c2f8648a9f08f6f379faf11faa680a601bc87
