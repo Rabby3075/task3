@@ -26,13 +26,16 @@ Route::post('/userLoginSubmit',[CustomerController::class, 'userLoginSubmit'])->
 
 
 
+
 Route::get('/user/dash',[CustomerController::class, 'dash'])->name('dashbd');
 Route::get('/admin',[AdminController::class, 'dash'])->name('dashadmin');
+
 
 
 Route::get('/user/dash',[CustomerController::class, 'dash'])->name('dashbd')->middleware('userValid');
 Route::get('/user/dash/home', function () {return view('customer.home');})->name('userHome');
 Route::get('/user/dash/logout',[CustomerController::class, 'logout'])->name('userLogout')->middleware('userValid');
+
 
 
 Route::get('/admin',[AdminController::class, 'dash'])->name('dashadmin')->middleware('ValidAdmin');
@@ -42,4 +45,14 @@ Route::get('/admin/logout',[AdminController::class, 'logout'])->name('adminLogou
 Route::get('/user/dash/profile', function () {return view('customer.profile');})->name('userProfile')->middleware('userValid');
 Route::post('/user/dash/profileSubmit',[CustomerController::class, 'editProfile'])->name('editProfile')->middleware('userValid');
 
+
+
+Route::get('/admin',[AdminController::class, 'dash'])->name('dashadmin')->middleware('ValidAdmin');
+Route::get('/admin/userlist',[AdminController::class, 'userList'])->name('userList')->middleware('ValidAdmin');
+Route::get('/admin/logout',[AdminController::class, 'logout'])->name('adminLogout')->middleware('ValidAdmin');
+Route::get('/admin/userEdit/{id}',[AdminController::class, 'userEdit'])->name('userEdit')->middleware('ValidAdmin');
+Route::post('/admin/userEdit',[AdminController::class, 'userEditSubmitted'])->name('userEdit')->middleware('ValidAdmin');
+
+Route::get('/user/dash/profile', function () {return view('customer.profile');})->name('userProfile')->middleware('userValid');
+Route::post('/user/dash/profileSubmit',[CustomerController::class, 'editProfile'])->name('editProfile')->middleware('userValid');
 

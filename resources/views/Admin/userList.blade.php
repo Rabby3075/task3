@@ -152,7 +152,7 @@ tr:hover {background-color: coral;}
         <th>DOB</th>
         <th>Phone</th>
         <th>Email</th>
-        <!--<th>Action</th>-->
+        <th>Action</th>
     </tr>
     @foreach($customers as $customer)
         <tr>
@@ -161,7 +161,7 @@ tr:hover {background-color: coral;}
             <td>{{$customer->dob}}</td>
             <td>{{$customer->phone}}</td>
             <td>{{$customer->email}}</td>
-            <!--<td><a href="/customerEdit/{{$customer->id}}">Details</a></td>-->
+            <td><a href="/admin/userEdit/{{$customer->id}}">Edit</a></td>
         </tr>
     @endforeach
 </table>
