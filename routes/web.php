@@ -24,22 +24,15 @@ Route::post('/adminLoginSubmit',[AdminController::class, 'adminLoginSubmit'])->n
 Route::get('/userLogin', function () {return view('customer.login');})->name('userLogin');
 Route::post('/userLoginSubmit',[CustomerController::class, 'userLoginSubmit'])->name('userLoginSubmit');
 
-<<<<<<< HEAD
-=======
-Route::get('/user/dash',[CustomerController::class, 'dash'])->name('dashbd');
-Route::get('/admin',[AdminController::class, 'dash'])->name('dashadmin');
-
->>>>>>> 260e0b8e4ec330652f49715ef99f12c02136d386
 Route::get('/user/dash',[CustomerController::class, 'dash'])->name('dashbd')->middleware('userValid');
 Route::get('/user/dash/home', function () {return view('customer.home');})->name('userHome');
 Route::get('/user/dash/logout',[CustomerController::class, 'logout'])->name('userLogout')->middleware('userValid');
 
-<<<<<<< HEAD
 Route::get('/admin',[AdminController::class, 'dash'])->name('dashadmin')->middleware('ValidAdmin');
 Route::get('/admin/userlist',[AdminController::class, 'userList'])->name('userList')->middleware('ValidAdmin');
 Route::get('/admin/logout',[AdminController::class, 'logout'])->name('adminLogout')->middleware('ValidAdmin');
-=======
+Route::get('/admin/userEdit/{id}',[AdminController::class, 'userEdit'])->name('userEdit')->middleware('ValidAdmin');
+Route::post('/admin/userEdit',[AdminController::class, 'userEditSubmitted'])->name('userEdit')->middleware('ValidAdmin');
+
 Route::get('/user/dash/profile', function () {return view('customer.profile');})->name('userProfile')->middleware('userValid');
 Route::post('/user/dash/profileSubmit',[CustomerController::class, 'editProfile'])->name('editProfile')->middleware('userValid');
-
->>>>>>> 260e0b8e4ec330652f49715ef99f12c02136d386

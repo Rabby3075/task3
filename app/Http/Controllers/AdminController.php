@@ -153,4 +153,29 @@ class AdminController extends Controller
         $customers = Customer::all();
         return view('Admin.userList')->with('customers', $customers);
     }
+    public function userEdit(Request $request){
+        $customer = Customer::where('id', $request->id)->first();
+        return view('Admin.edit')->with('customer', $customer);
+
+    }
+    public function userEditSubmitted(Request $request){
+        $validate = $request->validate([
+            "name"=>"required|min:5|max:20",
+            'dob'=>'required',
+            'phone'=>'required|regex:/^([0-9\s\-\+\(\)]*)$/',
+            'email'=>'email'
+            
+        ],
+        ['name.required'=>"Please put you name here"]
+    );
+
+        $user = Customer::where('id', $request->id)->first();
+        $user->name = $request->name;
+        $user->dob = $request->dob;
+        $user->phone = $request->phone;
+        $user->email = $request->email;
+        $user->save();
+        return redirect()->route('userList');
+
+    }
 }
